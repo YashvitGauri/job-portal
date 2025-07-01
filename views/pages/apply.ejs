@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+
+<div class="container py-5">
+  <h2 class="mb-4">Apply for Job</h2>
+  <p>You are applying for job ID: <%= jobId %></p>
+
+  <form action="/apply/<%= jobId %>" method="POST">
+    <div class="mb-3">
+      <label for="resume" class="form-label">Resume Link or Notes</label>
+      <textarea name="resume" id="resume" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Application</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>
