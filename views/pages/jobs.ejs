@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<div class="container py-5">
+  <h2 class="mb-4 text-primary">Available Job Openings</h2>
+
+  <% if (jobs.length === 0) { %>
+    <p>No job openings available at the moment.</p>
+  <% } else { %>
+    <div class="row">
+      <% jobs.forEach(job => { %>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= job.title %></h5>
+              <h6 class="card-subtitle mb-2 text-muted"><%= job.department %> — <%= job.location %></h6>
+              <p class="card-text"><%= job.description %></p>
+              <p class="card-text"><small class="text-muted">Apply by: <%= job.deadline.toDateString() %></small></p>
+              <a href="/apply/<%= job._id %>" class="btn btn-outline-primary btn-sm">Apply Now</a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

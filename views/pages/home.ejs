@@ -15,7 +15,7 @@
           Contribute to cutting-edge defence research and technology with DRDO.
           Shape the future of national security.
         </p>
-        <a href="#jobs-section" class="btn btn-primary btn-lg" data-aos="zoom-in" data-aos-delay="400">Explore Jobs</a>
+        <a href="/jobs" class="btn btn-primary btn-lg" data-aos="zoom-in" data-aos-delay="400">Explore Jobs</a>
       </div>
       <div class="text-center mt-4">
         <a href="#stats-section" class="scroll-down">
@@ -63,25 +63,19 @@
 <section id="jobs-section" class="job-cards py-5 bg-light" data-aos="fade-up">
   <div class="container">
     <h2 class="text-center mb-5">Featured Openings</h2>
-    <div class="row g-4">
-      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-        <div class="card h-100 shadow-sm job-card">
-          <div class="card-body">
-            <h5 class="card-title">JRF - Electronics</h5>
-            <p class="card-text">Work on signal processing and sensor systems at DRDO Hyderabad.</p>
-            <a href="/apply" class="btn btn-outline-primary btn-sm">Apply Now</a>
-          </div>
+    <div class="row">
+  <% jobs.forEach(job => { %>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><%= job.title %></h5>
+          <p class="card-text"><%= job.description %></p>
+          <a href="/apply/<%= job._id %>" class="btn btn-outline-primary btn-sm">Apply Now</a>
         </div>
       </div>
-
-      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-        <!-- Another card -->
-      </div>
-
-      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
-        <!-- Another card -->
-      </div>
     </div>
+  <% }) %>
+</div>
   </div>
 </section>
 

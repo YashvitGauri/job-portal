@@ -7,6 +7,8 @@ import mongoose from 'mongoose';
 import MongoStore from 'connect-mongo';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import jobRoutes from './routes/jobRoutes.js';
+import Job from './models/Job.js';
 
 dotenv.config();
 
@@ -20,6 +22,7 @@ const __dirname = path.dirname(__filename);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use('/uploads', express.static('uploads'));
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,12 +50,18 @@ app.use((req, res, next) => {
 
 app.use(authRoutes);
 app.use(userRoutes);
+app.use(jobRoutes);
 
 
-app.get('/', (req, res) => {
-  res.render('pages/home');
+app.get('/', async (req, res) => {
+  try {
+    const jobs = await Job.find().sort({ createdAt: -1 }).limit(3);
+    res.render('pages/home', { jobs });
+  } catch (err) {
+    console.error('Error loading homepage jobs:', err);
+    res.render('pages/home', { jobs: [] });
+  }
 });
-
 
 app.listen(PORT, () => {
   console.log(` Server running on http://localhost:${PORT}`);

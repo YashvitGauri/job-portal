@@ -1,13 +1,12 @@
 <%- include('../partials/header') %>
 
 <div class="container py-5">
-  <h2 class="mb-4">Apply for Job</h2>
-  <p>You are applying for job ID: <%= jobId %></p>
+  <h2 class="mb-4 text-primary">Apply for: <%= job.title %></h2>
 
-  <form action="/apply/<%= jobId %>" method="POST">
+  <form action="/apply/<%= job._id %>" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
-      <label for="resume" class="form-label">Resume Link or Notes</label>
-      <textarea name="resume" id="resume" class="form-control" required></textarea>
+      <label for="resume" class="form-label">Upload Resume (PDF only)</label>
+      <input type="file" class="form-control" id="resume" name="resume" accept=".pdf" required>
     </div>
     <button type="submit" class="btn btn-primary">Submit Application</button>
   </form>

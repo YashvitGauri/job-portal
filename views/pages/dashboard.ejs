@@ -1,14 +1,58 @@
 <%- include('../partials/header') %>
 
 <div class="container py-5">
-  <h2 class="text-primary mb-4">Welcome to Your Dashboard</h2>
-
-  <div class="card shadow-sm p-4">
+  <h2 class="text-primary mb-4">Welcome, <%= name %></h2>
+  <div class="card shadow-sm mb-4 p-4">
+    <h5 class="mb-3 text-muted">Your Profile</h5>
     <p><strong>Name:</strong> <%= name %></p>
     <p><strong>Email:</strong> <%= email %></p>
-    <hr>
-    <h5>Applications Submitted:</h5>
-    <p>(This section will later show job applications with their status.)</p>
+  </div>
+
+  <div class="card shadow-sm p-4">
+    <h5 class="mb-3 text-muted">Your Job Applications</h5>
+
+    <% if (applications.length === 0) { %>
+      <p class="text-muted">You haven’t applied for any jobs yet.</p>
+    <% } else { %>
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Job Title</th>
+              <th scope="col">Department</th>
+              <th scope="col">Location</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Status</th>
+              <th scope="col">Resume</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% applications.forEach(app => { %>
+              <tr>
+                <td><strong><%= app.jobId.title %></strong></td>
+                <td><%= app.jobId.department || '-' %></td>
+                <td><%= app.jobId.location || '-' %></td>
+                <td><%= app.jobId.deadline ? app.jobId.deadline.toDateString() : '-' %></td>
+                <td>
+                  <% if (app.status === 'Accepted') { %>
+                    <span class="badge bg-success">Accepted</span>
+                  <% } else if (app.status === 'Rejected') { %>
+                    <span class="badge bg-danger">Rejected</span>
+                  <% } else { %>
+                    <span class="badge bg-info text-dark">In-Process</span>
+                  <% } %>
+                </td>
+                <td>
+                  <a href="/<%= app.resumePath %>" target="_blank" class="btn btn-sm btn-outline-primary">
+                    View Resume
+                  </a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
   </div>
 </div>
 
