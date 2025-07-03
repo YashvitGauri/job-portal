@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+
+<div class="container py-5">
+  <h2 class="mb-4 text-primary">Edit Job Posting</h2>
+
+  <form action="/admin/jobs/<%= job._id %>/update" method="POST">
+    <div class="mb-3">
+      <label class="form-label">Job Title</label>
+      <input type="text" name="title" class="form-control" value="<%= job.title %>" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Department</label>
+      <input type="text" name="department" class="form-control" value="<%= job.department %>">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Location</label>
+      <input type="text" name="location" class="form-control" value="<%= job.location %>" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea name="description" class="form-control" rows="4" required><%= job.description %></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Deadline</label>
+      <input type="date" name="deadline" class="form-control" value="<%= job.deadline.toISOString().substring(0, 10) %>" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update Job</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

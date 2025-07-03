@@ -40,4 +40,21 @@ router.post('/apply/:id', ensureAuthenticated, upload.single('resume'), async (r
   }
 });
 
+router.post('/withdraw/:id', ensureAuthenticated, async (req, res) => {
+  try {
+    const app = await Application.findById(req.params.id);
+
+    // Only allow if it's the logged-in user's application & status is "In-Process"
+    if (app.userId.toString() !== req.session.userId || app.status !== 'In-Process') {
+      return res.status(403).send('You cannot withdraw this application.');
+    }
+
+    await Application.findByIdAndDelete(req.params.id);
+    res.redirect('/dashboard');
+  } catch (err) {
+    console.error('Error withdrawing application:', err);
+    res.status(500).send('Server error');
+  }
+});
+
 export default router

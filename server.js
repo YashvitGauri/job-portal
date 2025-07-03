@@ -8,6 +8,7 @@ import MongoStore from 'connect-mongo';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import jobRoutes from './routes/jobRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 import Job from './models/Job.js';
 
 dotenv.config();
@@ -51,6 +52,7 @@ app.use((req, res, next) => {
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(jobRoutes);
+app.use(adminRoutes);
 
 
 app.get('/', async (req, res) => {

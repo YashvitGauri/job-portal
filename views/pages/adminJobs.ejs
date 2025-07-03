@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+<div class="container py-5">
+  <h2 class="text-primary mb-4">Manage Jobs</h2>
+  <a href="/admin/jobs/new" class="btn btn-success mb-3">+ Add New Job</a>
+
+  <% if (jobs.length === 0) { %>
+    <p class="text-muted">No job postings available.</p>
+  <% } else { %>
+    <table class="table table-hover table-bordered align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Title</th>
+          <th>Department</th>
+          <th>Location</th>
+          <th>Deadline</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% jobs.forEach(job => { %>
+          <tr>
+            <td><%= job.title %></td>
+            <td><%= job.department || '-' %></td>
+            <td><%= job.location || '-' %></td>
+            <td><%= job.deadline ? job.deadline.toDateString() : '-' %></td>
+            <td class="d-flex gap-2">
+              <a href="/admin/jobs/<%= job._id %>/applicants" class="btn btn-sm btn-outline-info">View Applicants</a>
+
+              <a href="/admin/jobs/<%= job._id %>/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+              <form action="/admin/jobs/<%= job._id %>/delete" method="POST" onsubmit="return confirm('Are you sure?')">
+                <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

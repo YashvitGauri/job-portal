@@ -18,12 +18,13 @@
         <table class="table table-hover table-bordered align-middle">
           <thead class="table-light">
             <tr>
-              <th scope="col">Job Title</th>
-              <th scope="col">Department</th>
-              <th scope="col">Location</th>
-              <th scope="col">Deadline</th>
-              <th scope="col">Status</th>
-              <th scope="col">Resume</th>
+              <th>Job Title</th>
+              <th>Department</th>
+              <th>Location</th>
+              <th>Deadline</th>
+              <th>Status</th>
+              <th>Resume</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -47,6 +48,15 @@
                     View Resume
                   </a>
                 </td>
+                <td>
+                  <% if (app.status === 'In-Process') { %>
+                    <form action="/withdraw/<%= app._id %>" method="POST" onsubmit="return confirm('Are you sure you want to withdraw this application?')">
+                      <button type="submit" class="btn btn-sm btn-outline-danger">Withdraw</button>
+                    </form>
+                    <% } else { %>
+                      <span class="text-muted">-</span>
+                      <% } %>
+                  </td>
               </tr>
             <% }) %>
           </tbody>
