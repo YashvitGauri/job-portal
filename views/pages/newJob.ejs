@@ -5,13 +5,13 @@
 
   <form action="/admin/jobs" method="POST">
     <div class="mb-3">
-      <label class="form-label">Job Title</label>
+      <label class="form-label">Type of Fellowship</label>
       <input type="text" name="title" class="form-control" required>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Department</label>
-      <input type="text" name="department" class="form-control">
+      <label class="form-label">Subject/Discipline</label>
+      <input type="text" name="discipline" class="form-control">
     </div>
 
     <div class="mb-3">
@@ -20,8 +20,13 @@
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Description</label>
-      <textarea name="description" class="form-control" rows="4" required></textarea>
+      <label class="form-label">Qualifications</label>
+      <textarea name="qualifications" class="form-control" rows="4" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="vacancies" class="form-label">Number of Vacancies</label>
+      <input type="number" class="form-control" name="vacancies" required>
     </div>
 
     <div class="mb-3">

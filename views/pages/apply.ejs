@@ -3,6 +3,14 @@
 <div class="container py-5">
   <h2 class="mb-4 text-primary">Apply for: <%= job.title %></h2>
 
+  <div class="mb-4">
+    <p><strong>Subject/Discipline:</strong> <%= job.discipline %></p>
+    <p><strong>Location:</strong> <%= job.location %></p>
+    <p><strong>Deadline:</strong> <%= job.deadline.toDateString() %></p>
+    <p><strong>Vacancies:</strong> <%= job.vacancies || 'N/A' %></p>
+    <p><strong>Qualifications:</strong><br> <%= job.qualifications %></p>
+  </div>
+
   <form action="/apply/<%= job._id %>" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="resume" class="form-label">Upload Resume (PDF only)</label>

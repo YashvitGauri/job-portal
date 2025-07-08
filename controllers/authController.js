@@ -34,24 +34,31 @@ export const getLogin = (req, res) => {
 
 export const postLogin = async (req, res) => {
   const { email, password } = req.body;
+
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.send('User not found');
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.send('Incorrect password');
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      req.session.errorMsg = 'Invalid credentials. Please try again.';
+      return res.redirect('/login');
+    }
+
 
     req.session.userId = user._id;
     req.session.userName = user.name;
     req.session.userEmail = user.email;
     req.session.role = user.role;
+
+    req.session.successMsg = 'Logged in successfully!';
+    res.redirect('/dashboard');
     
-    res.redirect('/');
   } catch (err) {
-    console.error(err);
-    res.send('Login failed');
+    console.error('Login Error:', err);
+    req.session.errorMsg = 'Something went wrong. Please try again.';
+    res.redirect('/login');
   }
 };
+
 
 export const logout = (req, res) => {
   req.session.destroy(() => {

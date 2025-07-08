@@ -34,7 +34,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/job-portal')
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
 app.use(session({
-  secret: 'secret-key',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/job-portal' }),
@@ -49,10 +49,20 @@ app.use((req, res, next) => {
   next();
 })
 
+app.use((req, res, next) => {
+  res.locals.successMsg = req.session.successMsg || null;
+  res.locals.errorMsg = req.session.errorMsg || null;
+  req.session.successMsg = null;
+  req.session.errorMsg = null;
+  next();
+});
+
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(jobRoutes);
 app.use(adminRoutes);
+
+
 
 
 app.get('/', async (req, res) => {
@@ -64,6 +74,7 @@ app.get('/', async (req, res) => {
     res.render('pages/home', { jobs: [] });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(` Server running on http://localhost:${PORT}`);

@@ -11,7 +11,7 @@
       <thead class="table-light">
         <tr>
           <th>Title</th>
-          <th>Department</th>
+          <th>Subject/Discipline</th>
           <th>Location</th>
           <th>Deadline</th>
           <th>Actions</th>
@@ -21,7 +21,7 @@
         <% jobs.forEach(job => { %>
           <tr>
             <td><%= job.title %></td>
-            <td><%= job.department || '-' %></td>
+            <td><%= job.discipline || '-' %></td>
             <td><%= job.location || '-' %></td>
             <td><%= job.deadline ? job.deadline.toDateString() : '-' %></td>
             <td class="d-flex gap-2">

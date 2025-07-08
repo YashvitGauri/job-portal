@@ -12,14 +12,14 @@
     <h5 class="mb-3 text-muted">Your Job Applications</h5>
 
     <% if (applications.length === 0) { %>
-      <p class="text-muted">You haven’t applied for any jobs yet.</p>
+      <p class="text-muted">You haven't applied for any jobs yet.</p>
     <% } else { %>
       <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle">
           <thead class="table-light">
             <tr>
               <th>Job Title</th>
-              <th>Department</th>
+              <th>Subject/Discipline</th>
               <th>Location</th>
               <th>Deadline</th>
               <th>Status</th>
@@ -31,7 +31,7 @@
             <% applications.forEach(app => { %>
               <tr>
                 <td><strong><%= app.jobId.title %></strong></td>
-                <td><%= app.jobId.department || '-' %></td>
+                <td><%= app.jobId.discipline || '-' %></td>
                 <td><%= app.jobId.location || '-' %></td>
                 <td><%= app.jobId.deadline ? app.jobId.deadline.toDateString() : '-' %></td>
                 <td>

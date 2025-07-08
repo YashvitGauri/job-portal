@@ -20,8 +20,15 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
 });
 
 router.get('/apply/:id', ensureAuthenticated, async (req, res) => {
-  const job = await Job.findById(req.params.id);
-  res.render('pages/apply', { job });
+  try {
+    const job = await Job.findById(req.params.id);
+    if (!job) return res.status(404).send('Job not found');
+
+    res.render('pages/apply', { job, user: req.session });
+  } catch (err) {
+    console.error('Error loading apply page:', err);
+    res.status(500).send('Server error');
+  }
 });
 
 router.post('/apply/:id', ensureAuthenticated, upload.single('resume'), async (req, res) => {
@@ -33,7 +40,7 @@ router.post('/apply/:id', ensureAuthenticated, upload.single('resume'), async (r
     });
 
     await newApp.save();
-    res.redirect('/dashboard'); // Or a success page
+    res.redirect('/dashboard');
   } catch (err) {
     console.error(err);
     res.status(500).send('❌ Error submitting application');

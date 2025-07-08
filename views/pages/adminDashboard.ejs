@@ -13,8 +13,9 @@
           <tr>
             <th>Applicant</th>
             <th>Email</th>
-            <th>Job Title</th>
-            <th>Department</th>
+            <th>Type of Fellowship</th>
+            <th>Discipline</th>
+            <th>Vacancies</th>
             <th>Resume</th>
             <th>Status</th>
             <th>Update Status</th>
@@ -26,7 +27,8 @@
               <td><%= app.userId.name %></td>
               <td><%= app.userId.email %></td>
               <td><%= app.jobId.title %></td>
-              <td><%= app.jobId.department || '-' %></td>
+              <td><%= app.jobId.discipline || '-' %></td>
+              <td><%= app.jobId.vacancies %></td>
               <td>
                 <a href="/<%= app.resumePath %>" class="btn btn-sm btn-outline-primary" target="_blank">View</a>
               </td>

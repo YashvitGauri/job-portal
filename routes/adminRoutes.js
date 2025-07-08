@@ -36,14 +36,15 @@ router.get('/admin/jobs', ensureAdmin, async (req, res) => {
 });
 
 router.post('/admin/jobs', ensureAdmin, async (req, res) => {
-  const { title, department, location, description, deadline } = req.body;
+  const { title, discipline, location, qualifications, vacancies, deadline } = req.body;
 
   try {
     const newJob = new Job({
       title,
-      department,
+      discipline,
       location,
-      description,
+      qualifications,
+      vacancies,
       deadline,
       createdBy: req.session.userId
     });
@@ -62,14 +63,15 @@ router.get('/admin/jobs/:id/edit', ensureAdmin, async (req, res) => {
 });
 
 router.post('/admin/jobs/:id/update', ensureAdmin, async (req, res) => {
-  const { title, department, location, description, deadline } = req.body;
+  const { title, discipline, location, qualifications, vacancies, deadline } = req.body;
 
   try {
     await Job.findByIdAndUpdate(req.params.id, {
       title,
-      department,
+      discipline,
       location,
-      description,
+      qualifications,
+      vacancies,
       deadline
     });
 
@@ -82,7 +84,7 @@ router.post('/admin/jobs/:id/update', ensureAdmin, async (req, res) => {
 
 router.post('/admin/jobs/:id/delete', ensureAdmin, async (req, res) => {
   try {
-    await Job.findByIdAndDelete(req.params.id);
+    await Job.findOneAndDelete({ _id: req.params.id });
     res.redirect('/admin/jobs');
   } catch (err) {
     console.error('Error deleting job:', err);

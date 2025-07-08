@@ -1,21 +1,26 @@
 <%- include('../partials/header') %>
 
 <div class="container py-5">
-  <h2 class="mb-4 text-primary">Available Job Openings</h2>
+  <h2 class="text-center text-primary mb-4">Available Job Openings</h2>
 
   <% if (jobs.length === 0) { %>
-    <p>No job openings available at the moment.</p>
+    <p class="text-muted text-center">No jobs posted yet.</p>
   <% } else { %>
-    <div class="row">
+    <div class="row g-4">
       <% jobs.forEach(job => { %>
-        <div class="col-md-6 mb-4">
-          <div class="card shadow-sm h-100">
-            <div class="card-body">
-              <h5 class="card-title"><%= job.title %></h5>
-              <h6 class="card-subtitle mb-2 text-muted"><%= job.department %> — <%= job.location %></h6>
-              <p class="card-text"><%= job.description %></p>
-              <p class="card-text"><small class="text-muted">Apply by: <%= job.deadline.toDateString() %></small></p>
-              <a href="/apply/<%= job._id %>" class="btn btn-outline-primary btn-sm">Apply Now</a>
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm border-0 job-card animate-fade-in">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title text-primary mb-2"><%= job.title %></h5>
+              <p class="text-muted small mb-2">
+                <span class="badge bg-secondary me-2"><%= job.discipline || 'General' %></span>
+                <span class="badge bg-info text-dark"><%= job.location %></span>
+              </p>
+              <p class="card-text flex-grow-1">
+                <%= job.qualifications.length > 100 ? job.qualifications.slice(0, 100) + '...' : job.qualifications %>
+              </p>
+              <p class="text-muted small mb-2">Deadline: <%= job.deadline.toDateString() %></p>
+              <a href="/apply/<%= job._id %>" class="btn btn-outline-primary mt-auto">Apply Now</a>
             </div>
           </div>
         </div>
