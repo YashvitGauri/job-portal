@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow p-4 rounded-3">
+                <h3 class="mb-4 text-primary text-center">Contact Us</h3>
+                <% if (successMsg) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= successMsg %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <% } %>
+                <% if (errorMsg) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= errorMsg %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <% } %>
+                
+                <form action="/contact" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Your Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Your Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Email-ID" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea name="message" class="form-control" rows="4" placeholder="Write your message..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

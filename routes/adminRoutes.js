@@ -3,6 +3,7 @@ import Application from '../models/Application.js';
 import Job from '../models/Job.js';
 import User from '../models/User.js';
 import { ensureAdmin } from '../middlewares/authMiddleware.js';
+import ContactMessage from '../models/ContactMessage.js';
 
 const router = express.Router();
 
@@ -29,6 +30,7 @@ router.post('/admin/application/:id/status', ensureAdmin, async (req, res) => {
     res.status(500).send('Server error while updating application status.');
   }
 });
+
 
 router.get('/admin/jobs', ensureAdmin, async (req, res) => {
   const jobs = await Job.find().sort({ createdAt: -1 });
@@ -105,6 +107,41 @@ router.get('/admin/jobs/:id/applicants', ensureAdmin, async (req, res) => {
   } catch (err) {
     console.error('Error fetching applicants:', err);
     res.status(500).send('Error loading applicants');
+  }
+});
+
+router.get('/admin/messages', ensureAdmin, async (req, res) => {
+  try {
+    const messages = await ContactMessage.find().sort({ submittedAt: -1 });
+    res.render('pages/contactMessages', { messages });
+  } catch (err) {
+    console.error('Error fetching messages:', err);
+    res.status(500).send('Error loading messages');
+  }
+});
+
+router.post('/admin/messages/:id/delete', ensureAdmin, async (req, res) => {
+  try {
+    await ContactMessage.findByIdAndDelete(req.params.id);
+    req.session.successMsg = 'Message deleted successfully.';
+    res.redirect('/admin/messages');
+  } catch (err) {
+    console.error('Error deleting message:', err);
+    req.session.errorMsg = 'Failed to delete message.';
+    res.redirect('/admin/messages');
+  }
+});
+
+
+router.get('/admin/user/:userId/history', ensureAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    const applications = await Application.find({ userId: user._id }).populate('jobId');
+
+    res.render('pages/userHistory', { user, applications });
+  } catch (err) {
+    console.error('Error loading user application history:', err);
+    res.status(500).send('Server error while loading history');
   }
 });
 

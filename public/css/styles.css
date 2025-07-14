@@ -58,12 +58,7 @@ p {
 
 
 
-/*.hero-section {
-  background: linear-gradient(135deg, #e6f0fa, #f8fcff);
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-}*/
+
 
 .hero-section {
   position: relative;

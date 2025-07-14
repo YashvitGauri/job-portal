@@ -36,7 +36,11 @@ router.post('/apply/:id', ensureAuthenticated, upload.single('resume'), async (r
     const newApp = new Application({
       jobId: req.params.id,
       userId: req.session.userId,
-      resumePath: req.file.path
+      resumePath: req.file.path,
+      status: 'In-Process',
+      statusHistory: [
+    { status: 'In-Process', updatedAt: new Date() }
+    ]
     });
 
     await newApp.save();

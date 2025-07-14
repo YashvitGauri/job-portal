@@ -19,6 +19,7 @@
             <th>Resume</th>
             <th>Status</th>
             <th>Update Status</th>
+            <th>History</th>
           </tr>
         </thead>
         <tbody>
@@ -51,6 +52,9 @@
                   <button type="submit" class="btn btn-sm btn-primary">Update</button>
                 </form>
               </td>
+              <td><a href="/admin/user/<%= app.userId._id %>/history" class="btn btn-sm btn-outline-secondary">
+  View History
+</a></td>
             </tr>
           <% }) %>
         </tbody>

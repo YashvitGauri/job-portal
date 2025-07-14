@@ -19,6 +19,10 @@ const applicationSchema = new mongoose.Schema({
     type: String,
     enum: ['In-Process', 'Accepted', 'Rejected'],
     default: 'In-Process'
+  },
+  appliedAt: {
+    type: Date,
+    default: Date.now
   }
 }, { timestamps: true });
 

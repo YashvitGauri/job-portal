@@ -9,7 +9,10 @@ export const postRegister = async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const userExists = await User.findOne({ email });
-    if (userExists) return res.send('User already exists');
+    if (userExists){
+      req.session.errorMsg = 'Email already registered.';
+      return res.redirect('/register');
+    }
 
     const hashedPassword = await bcrypt.hash(password, 12);
 

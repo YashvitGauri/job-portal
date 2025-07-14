@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+
+<div class="container py-5">
+  <h2 class="mb-4 text-primary">Application History for <%= user.name %></h2>
+  <p><strong>Email:</strong> <%= user.email %></p>
+
+  <% if (applications.length === 0) { %>
+    <div class="alert alert-warning mt-4">No applications found for this user.</div>
+  <% } else { %>
+    <table class="table table-bordered mt-4">
+      <thead class="table-light">
+        <tr>
+          <th>Job Title</th>
+          <th>Discipline</th>
+          <th>Applied On</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% applications.forEach(app => { %>
+          <tr>
+            <td><%= app.jobId?.title || 'Unknown Job' %></td>
+            <td><%= app.jobId?.discipline || 'Unknown' %></td>
+            <td><%= app.appliedAt.toDateString() %></td>
+            <td>
+              <span class="badge 
+                <%= app.status === 'Accepted' ? 'bg-success' :
+                     app.status === 'Rejected' ? 'bg-danger' :
+                     'bg-info text-dark' %>">
+                <%= app.status %>
+              </span>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>
