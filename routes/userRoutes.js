@@ -1,7 +1,7 @@
 import express from 'express';
 import Job from '../models/Job.js';
 import Application from '../models/Application.js';
-import { upload } from '../middlewares/uploadMiddleware.js';
+import { upload } from '../utils/upload.js';
 import { ensureAuthenticated } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
