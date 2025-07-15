@@ -11,7 +11,8 @@ export const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'drdo-resumes',
-    allowed_formats: ['pdf', 'doc', 'docx']
+    allowed_formats: ['pdf', 'doc', 'docx'],
+    resource_type: 'raw' 
   }
 });
 
